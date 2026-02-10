@@ -40,6 +40,16 @@
   (major1) == 1 && (major2) <  3 || \
   (major1) == 1 && (major2) == 3 && (minor) <= 8)
 #endif /* MIN_VERSION_directory */
+/* package optparse-applicative-0.19.0.0 */
+#ifndef VERSION_optparse_applicative
+#define VERSION_optparse_applicative "0.19.0.0"
+#endif /* VERSION_optparse_applicative */
+#ifndef MIN_VERSION_optparse_applicative
+#define MIN_VERSION_optparse_applicative(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  19 || \
+  (major1) == 0 && (major2) == 19 && (minor) <= 0)
+#endif /* MIN_VERSION_optparse_applicative */
 /* package unix-2.8.6.0 */
 #ifndef VERSION_unix
 #define VERSION_unix "2.8.6.0"
