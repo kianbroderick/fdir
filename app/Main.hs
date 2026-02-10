@@ -83,6 +83,16 @@ config =
           <> value Space
       )
 
+isHidden :: FilePath -> Bool
+isHidden f = case f of
+  [] -> False
+  (x : _) -> x == '.'
+
+listVisibleDirectory :: FilePath -> IO [FilePath]
+listVisibleDirectory filename = do
+  contents <- listDirectory filename
+  return $ filter (not . isHidden) contents
+
 mkFormatter :: Config -> FilePath -> FilePath
 mkFormatter c = fmap (convertLower . convertUpper . convertSeparator)
   where
@@ -111,14 +121,14 @@ formatFileOrRecurse f file = do
   isDir <- doesDirectoryExist file
   if isDir
     then do
-      contents <- listDirectory file
+      contents <- listVisibleDirectory file
       withCurrentDirectory file $ mapM_ (formatFileOrRecurse f) contents
     else formatFile f file
 
 hdir :: Config -> IO ()
 hdir config = do
   let formatter = mkFormatter config
-  contents <- listDirectory $ dirName config
+  contents <- listVisibleDirectory $ dirName config
   setCurrentDirectory $ dirName config
   let f = if recursive config then formatFileOrRecurse else formatFile
   mapM_ (f formatter) contents
