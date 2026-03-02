@@ -21,7 +21,7 @@ config =
       ( metavar "TARGET"
           <> help "Target directory to format"
       )
-    <*> switch (long "recursive" <> short 'r' <> help "Toggle to format all the directory recursively")
+    <*> switch (long "recursive" <> short 'r' <> help "Toggle to format the directory recursively")
     <*> option
       auto
       ( long "style"
