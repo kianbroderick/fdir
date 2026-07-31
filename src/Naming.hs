@@ -16,7 +16,7 @@ data Style
 
 runFormat :: Style -> String -> String
 runFormat style s =
-  let w = toWords s
+  let w = toWords . removePunctuation $ s
    in case style of
         Lower -> fmap toLower s
         Upper -> fmap toUpper s
@@ -54,3 +54,9 @@ capitalize (x : xs) = toUpper x : fmap toLower xs
 
 toWords :: String -> [String]
 toWords s = words $ fmap (replaceMultiple ['-', '_'] ' ') s
+
+undesired :: [Char]
+undesired = "`~!@#$%^+={[}]|\\;:,.<>?/\'"
+
+removePunctuation :: String -> String
+removePunctuation = filter (`notElem` undesired)
